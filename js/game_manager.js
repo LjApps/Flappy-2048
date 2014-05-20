@@ -43,20 +43,19 @@ GameManager.prototype.keepPlaying = function () {
 };
 
 GameManager.prototype.isGameTerminated = function () {
-  if (this.over || (this.won && !this.keepPlaying)) {
-    return true;
-  } else {
-    return false;
-  }
+  return this.over || (this.won && !this.keepPlaying);
 };
 
 // Set up the game
 GameManager.prototype.setup = function () {
+  this.grid  = new Grid(this.size);
   this.score = 0;
   this.birdpos = 0.5;
   this.birdspd = 0;
   this.ab = 1;
   this.cd = 1;
+  // Update the actuator
+  this.actuate();
 };
 
 // Set up the initial tiles to start the game with
@@ -84,12 +83,25 @@ GameManager.prototype.actuate = function () {
 
   this.actuator.actuate(this.grid, {
     score:      this.score,
+    over:       this.over,
+    won:        this.won,
     bestScore:  this.scoreManager.get(),
     birdpos:    this.birdpos,
     ab:         this.ab,
     cd:         this.cd
   });
 
+};
+
+// Represent the current game as an object
+GameManager.prototype.serialize = function () {
+  return {
+    grid:        this.grid.serialize(),
+    score:       this.score,
+    over:        this.over,
+    won:         this.won,
+    keepPlaying: this.keepPlaying
+  };
 };
 
 // Save all tile positions and remove merger info
@@ -111,7 +123,7 @@ GameManager.prototype.moveTile = function (tile, cell) {
 
 // Move tiles on the grid in the specified direction
 GameManager.prototype.move = function (direction) {
-  // 0: up, 1: right, 2:down, 3: left
+  // 0: up, 1: right, 2: down, 3: left
   var self = this;
 
   if (this.isGameTerminated()) return; // Don't do anything if the game's over

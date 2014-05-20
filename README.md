@@ -11,4 +11,9 @@ Flappy-2048 is licensed under the [MIT license](https://github.com/gabrielecirul
 ## Documentation
 any documentation contained [herein](https://github.com/LjApps/Flappy-2048) is hereby additionally released under the [creative commons 4.0](http://creativecommons.org/licenses/by-sa/4.0/), [3.5](http://creativecommons.org/licenses/by-sa/3.5/), and [3.0](http://creativecommons.org/licenses/by-sa/3.0/) [license](http://creativecommons.org/licenses/by-sa/3.0/ph/)
 
+## TO DO:
+*refactor of score versus place value
+*sharing button, analytics, et simila paribus..
+*if you are interested in collaborating, hit me up [here](mailto://darth.Serious@gmail.com) or on Twitter [@nimbosa](http://twitter.com/nimbosa)
+
 the original game is ready to [Play here!](http://hczhcz.github.io/Flappy-2048/)
