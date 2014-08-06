@@ -65,10 +65,11 @@ HTMLActuator.prototype.actuate = function (grid, metadata) {
 };
 
 // Continues the game (both restart and keep playing)
-HTMLActuator.prototype.continue = function () {
+HTMLActuator.prototype.continueGame = function () {
   if (typeof ga !== "undefined") {
     ga("send", "event", "game", "restart");
   }
+
   this.clearMessage();
 };
 
@@ -163,8 +164,10 @@ HTMLActuator.prototype.message = function (won) {
   if (typeof ga !== "undefined") {
     ga("send", "event", "game", "end", type, this.score);
   }
+
   this.messageContainer.classList.add(type);
   this.messageContainer.getElementsByTagName("p")[0].textContent = message;
+
   this.clearContainer(this.sharingContainer);
   this.sharingContainer.appendChild(this.scoreTweetButton());
   twttr.widgets.load();

@@ -1,14 +1,14 @@
 function Grid(size, previousState) {
   this.build();
   this.size = size;
-  this.cells = previousState ? this.fromState(previousState) : this.build();
+  this.cells = previousState ? this.fromState(previousState) : this.empty();
 }
 
 // Build a grid of the specified size
-Grid.prototype.build = function () {
+Grid.prototype.empty = function () {
   var cells = [];
   for (var x = 0; x < this.size; x++) {
-    var row = this.cells[x] = cells[x] = [];
+    var row = cells[x] = [];
 
     for (var y = 0; y < this.size; y++) {
       row.push(null);

@@ -1,5 +1,17 @@
 function KeyboardInputManager() {
   this.events = {};
+
+  if (window.navigator.msPointerEnabled) {
+    //Internet Explorer 10 style
+    this.eventTouchstart    = "MSPointerDown";
+    this.eventTouchmove     = "MSPointerMove";
+    this.eventTouchend      = "MSPointerUp";
+  } else {
+    this.eventTouchstart    = "touchstart";
+    this.eventTouchmove     = "touchmove";
+    this.eventTouchend      = "touchend";
+  }
+
   this.listen();
 }
 
@@ -9,6 +21,7 @@ KeyboardInputManager.prototype.on = function (event, callback) {
   }
   this.events[event].push(callback);
 };
+
 KeyboardInputManager.prototype.emit = function (event, data) {
   var callbacks = this.events[event];
   if (callbacks) {
@@ -67,6 +80,7 @@ KeyboardInputManager.prototype.restart = function (event) {
   event.preventDefault();
   this.emit("restart");
 };
+
 KeyboardInputManager.prototype.keepPlaying = function (event) {
   event.preventDefault();
   this.emit("keepPlaying");
@@ -77,6 +91,7 @@ KeyboardInputManager.prototype.bindButtonPress = function (selector, fn) {
   button.addEventListener("click", fn.bind(this));
   button.addEventListener(this.eventTouchend, fn.bind(this));
 };
+
 KeyboardInputManager.prototype.targetIsInput = function (event) {
   return event.target.tagName.toLowerCase() === "input";
 };
